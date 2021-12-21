@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Availablity from '../../types/Availability'
-import TimeSlots from '../../types/TimeSlots'
+import TimeSlots from '../../constant/TimeSlots'
 import './Slot.css'
 
 interface Props {

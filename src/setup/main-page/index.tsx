@@ -2,7 +2,7 @@ import './MainPage.css'
 import DatePicker from '../../component/date-picker/'
 import { useState } from 'react'
 import SlotSelector from '../../component/slot-selector'
-import { getAvailablityForDate } from '../../service/MainPageService'
+import { getAvailablityForDate } from '../../service/AvailabilityService'
 import Availability from '../../types/Availability'
 import { dateFromStr, nowDateStr } from '../../util'
 
