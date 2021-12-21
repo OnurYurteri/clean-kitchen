@@ -13,8 +13,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",
-    "typescript": "^4.5.4",
-    "web-vitals": "^2.1.2"
+    "typescript": "^4.5.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -39,10 +38,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "_moduleAliases": {
-    "@setup": "./src/setup",
-    "@component": "./src/component"
   },
   "devDependencies": {}
 }
