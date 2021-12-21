@@ -10,14 +10,25 @@ interface OrdersByGroup {
   [key: string]: Order[]
 }
 
-const groupOrdersByDateAndTime = (
-  date: Date,
-  orders: Order[]
-): OrdersByGroup => {
-  const ordersByDate = groupBy(orders, 'date')
+const getAvailablityForDate = (date: Date): Availability[] => {
+  const orders: Order[] = getOrders()
+  const config = getConfig(date.getDay())
+
+  const filtered = filterOrdersByDate(date, orders)
+  const grouped = groupByTimeSlot(filtered)
+
+  const result = getAvailability(grouped, config)
+
+  return fillEmptySlots(result)
+}
+
+const filterOrdersByDate = (date: Date, orders: Order[]): Order[] => {
   const dateStr = toDateStr(date)
-  const ordersForDay = ordersByDate[dateStr] || []
-  return groupBy(ordersForDay, 'time')
+  return orders.filter((order) => order.date === dateStr)
+}
+
+const groupByTimeSlot = (orders: Order[]): OrdersByGroup => {
+  return groupBy(orders, 'time')
 }
 
 const getAvailability = (
@@ -31,18 +42,7 @@ const getAvailability = (
     }
   })
 
-  return fillEmptySlots(timeSlots)
-}
-
-const getAvailablityForDate = (date: Date): Availability[] => {
-  const orders: Order[] = getOrders()
-  const config = getConfig(date.getDay())
-
-  const map = groupOrdersByDateAndTime(date, orders)
-
-  const result = getAvailability(map, config)
-
-  return result
+  return timeSlots
 }
 
 const fillEmptySlots = (timeSlots: Availability[]): Availability[] => {
@@ -64,4 +64,10 @@ const fillEmptySlots = (timeSlots: Availability[]): Availability[] => {
   return filledTimeSlots
 }
 
-export { getAvailablityForDate, groupOrdersByDateAndTime, getAvailability }
+export {
+  getAvailablityForDate,
+  filterOrdersByDate,
+  groupByTimeSlot,
+  getAvailability,
+  fillEmptySlots,
+}

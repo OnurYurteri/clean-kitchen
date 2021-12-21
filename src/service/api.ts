@@ -16,4 +16,4 @@ const convertToOrders = (jsonList: any[]): Order[] => {
   })
 }
 
-export { getOrders }
+export { getOrders, convertToOrders }
